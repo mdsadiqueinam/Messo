@@ -28,6 +28,8 @@
         android:layout_height="match_parent"
         android:background="@color/transparent"
         android:orientation="vertical"
+        android:paddingBottom="55dp"
+        android:clipToPadding="false"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:context="com.sadique.messo.ui.fragments.MediaItemFragment"
         tools:listitem="@layout/media_item" />
