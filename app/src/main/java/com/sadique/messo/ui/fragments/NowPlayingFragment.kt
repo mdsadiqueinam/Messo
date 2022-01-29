@@ -1,6 +1,8 @@
 package com.sadique.messo.ui.fragments
 
+import android.content.res.ColorStateList
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.TransitionDrawable
@@ -181,16 +183,19 @@ class NowPlayingFragment : Fragment() {
         viewModel.shuffleMode.observe(viewLifecycleOwner) {
             @PlaybackStateCompat.ShuffleMode
             when (it) {
-                SHUFFLE_MODE_ALL -> shuffleToggle.setIconResource(R.drawable.ic_shuffle_active)
-                else -> shuffleToggle.setIconResource(R.drawable.ic_shuffle)
+                SHUFFLE_MODE_ALL -> shuffleToggle.setIconTintResource(R.color.secondary)
+                else -> shuffleToggle.iconTint = ColorStateList.valueOf(Color.WHITE)
             }
         }
         viewModel.repeatMode.observe(viewLifecycleOwner) {
             @PlaybackStateCompat.RepeatMode
             when (it) {
-                REPEAT_MODE_ALL -> repeatToggle.setIconResource(R.drawable.ic_repeat_active)
+                REPEAT_MODE_ALL -> repeatToggle.setIconTintResource(R.color.secondary)
                 REPEAT_MODE_ONE -> repeatToggle.setIconResource(R.drawable.ic_repeat_one_active)
-                else -> repeatToggle.setIconResource(R.drawable.ic_repeat)
+                else -> {
+                    repeatToggle.setIconResource(R.drawable.ic_repeat)
+                    repeatToggle.iconTint = ColorStateList.valueOf(Color.WHITE)
+                }
             }
         }
     }
