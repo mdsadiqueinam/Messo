@@ -1,0 +1,43 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Messo" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorSecondaryVariant">@color/secondaryDark</item>
+        <item name="colorOnSecondary">@android:color/black</item>
+
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+
+        <item name="android:textColor">@android:color/white</item>
+
+    </style>
+
+    <style name="TextAppearance.Messo.Title" parent="@style/TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="TextAppearance.Messo.Subtitle" parent="@style/TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@color/colorSubtitle</item>
+    </style>
+
+    <style name="MediaStateIcon">
+        <item name="tint">@color/mediaControlColor</item>
+        <item name="android:layout_margin">@dimen/media_item_control_margin</item>
+    </style>
+
+    <style name="MediaItemList">
+        <item name="android:background">@color/mediaListBackground</item>
+        <item name="android:paddingBottom">2dp</item>
+        <!-- In order to account for optical illusions,
+        make the end padding a bit larger so it visually looks the same. -->
+        <item name="android:paddingEnd">3dp</item>
+        <item name="android:paddingStart">2dp</item>
+        <item name="android:paddingTop">2dp</item>
+    </style>
+</resources>
