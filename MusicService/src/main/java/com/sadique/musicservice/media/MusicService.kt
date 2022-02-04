@@ -40,23 +40,21 @@ import com.google.android.exoplayer2.ext.mediasession.MediaSessionConnector
 import com.google.android.exoplayer2.ext.mediasession.TimelineQueueNavigator
 import com.google.android.exoplayer2.ui.PlayerNotificationManager
 import com.google.android.exoplayer2.upstream.DefaultDataSource
-import com.google.android.exoplayer2.MediaItem as ExoplayerMediaItem
 import com.google.android.gms.cast.framework.CastContext
-import com.sadique.musicservice.media.data.LocalSource
-import com.sadique.musicservice.utils.Constants.MEDIA_SEARCH_SUPPORTED
-import com.sadique.musicservice.utils.Constants.MESSO_EMPTY_ROOT
-import com.sadique.musicservice.utils.Constants.MESSO_LOCAL_ROOT
-import com.sadique.musicservice.utils.Constants.MESSO_RECENT_ROOT
 import com.sadique.musicservice.R
+import com.sadique.musicservice.common.MusicServiceConnection
+import com.sadique.musicservice.media.data.LocalSource
 import com.sadique.musicservice.media.extensions.*
 import com.sadique.musicservice.media.library.BrowseTree
 import com.sadique.musicservice.media.library.MusicSource
 import com.sadique.musicservice.media.library.PackageValidator
+import com.sadique.musicservice.utils.Constants.MEDIA_SEARCH_SUPPORTED
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import com.google.android.exoplayer2.MediaItem as ExoplayerMediaItem
 
 /**
  * This class is the entry point for browsing and playback commands from the APP's UI
@@ -273,7 +271,8 @@ open class MusicService : MediaBrowserServiceCompat() {
              * and return the recent root instead.
              */
             val isRecentRequest = rootHints?.getBoolean(EXTRA_RECENT) ?: false
-            val browserRootPath = if (isRecentRequest) MESSO_RECENT_ROOT else MESSO_LOCAL_ROOT
+            val browserRootPath =
+                if (isRecentRequest) MusicServiceConnection.MESSO_RECENT_ROOT else MusicServiceConnection.MESSO_LOCAL_ROOT
             BrowserRoot(browserRootPath, rootExtras)
         } else {
             /**
@@ -285,7 +284,7 @@ open class MusicService : MediaBrowserServiceCompat() {
              * Messo takes the first approach for a variety of reasons, but both are valid
              * options.
              */
-            BrowserRoot(MESSO_EMPTY_ROOT, rootExtras)
+            BrowserRoot(MusicServiceConnection.MESSO_EMPTY_ROOT, rootExtras)
         }
     }
 
@@ -302,7 +301,7 @@ open class MusicService : MediaBrowserServiceCompat() {
         /**
          * If the caller requests the recent root, return the most recently played song.
          */
-        if (parentMediaId == MESSO_RECENT_ROOT) {
+        if (parentMediaId == MusicServiceConnection.MESSO_RECENT_ROOT) {
             result.sendResult(storage.loadRecentSong()?.let { song -> listOf(song) })
         } else {
             // If the media source is ready, the results will be set synchronously here.

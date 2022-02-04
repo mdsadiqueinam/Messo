@@ -2,8 +2,11 @@ package com.sadique.messo.ui.activity
 
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.snackbar.Snackbar
 import com.sadique.messo.R
 import com.sadique.messo.databinding.ActivityMainBinding
@@ -20,6 +23,8 @@ class MainActivity : PermissionActivity() {
     private val viewModel: MainActivityViewModel by viewModels()
     private lateinit var binding: ActivityMainBinding
 
+    val motionLayout: MotionLayout get() = binding.root
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -28,17 +33,13 @@ class MainActivity : PermissionActivity() {
             MODE_PRIVATE
         )
         layout = binding.root
-        /*if (savedInstanceState == null) {
-            supportFragmentManager.commit {
-                setReorderingAllowed(true)
-                add<NowPlayFragment>(R.id.now_playing_fragment_container, NowPlayFragment.TAG)
-            }
-        }*/
         getExternalStoragePermission()
     }
 
     override fun onPermissionGranted() {
         setContentView(binding.root)
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        binding.bottomNavigation.setupWithNavController(navHostFragment.navController)
         subscribeToObservers()
     }
 

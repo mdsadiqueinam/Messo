@@ -13,20 +13,11 @@ import com.sadique.messo.models.MediaItemData
 import com.sadique.messo.ui.activity.MainActivity
 import com.sadique.messo.ui.viewmodels.MainActivityViewModel
 import com.sadique.messo.ui.viewmodels.MediaItemListViewModel
-import com.sadique.messo.utils.Constants.ARG_ROOT_ID
 import com.sadique.musicservice.utils.Status
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MediaItemListFragment : Fragment() {
-
-    companion object {
-        fun newInstance(mediaId: String) = MediaItemListFragment().apply {
-            arguments = Bundle().apply {
-                putString(ARG_ROOT_ID, mediaId)
-            }
-        }
-    }
 
     private lateinit var binding: MediaItemListFragmentBinding
 

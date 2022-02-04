@@ -15,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -33,10 +34,12 @@ import com.sadique.messo.R
 import com.sadique.messo.databinding.NowPlayingFragmentBinding
 import com.sadique.messo.extensions.lightenColor
 import com.sadique.messo.models.MediaItemData
+import com.sadique.messo.ui.activity.MainActivity
 import com.sadique.messo.ui.viewmodels.MainActivityViewModel
 import com.sadique.messo.ui.viewmodels.NowPlayingViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import kotlin.math.abs
 
 
 @AndroidEntryPoint
@@ -80,6 +83,36 @@ class NowPlayingFragment : Fragment() {
             }
             return false
         }
+
+    }
+
+    private val transitionListener = object : MotionLayout.TransitionListener {
+        override fun onTransitionStarted(
+            motionLayout: MotionLayout?,
+            startId: Int,
+            endId: Int,
+        ) = Unit
+
+        override fun onTransitionChange(
+            motionLayout: MotionLayout?,
+            startId: Int,
+            endId: Int,
+            progress: Float,
+        ) {
+            (activity as MainActivity).apply {
+                this.motionLayout.setTransition(startId, endId)
+                this.motionLayout.progress = progress
+            }
+        }
+
+        override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) = Unit
+
+        override fun onTransitionTrigger(
+            motionLayout: MotionLayout?,
+            triggerId: Int,
+            positive: Boolean,
+            progress: Float,
+        ) = Unit
 
     }
 
@@ -160,6 +193,8 @@ class NowPlayingFragment : Fragment() {
                 else -> mainViewModel.repeatAll()
             }
         }
+
+        root.addTransitionListener(transitionListener)
 
         subscribeToObservers()
     }

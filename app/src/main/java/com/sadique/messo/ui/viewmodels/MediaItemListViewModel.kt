@@ -5,7 +5,6 @@ import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.PlaybackStateCompat
 import androidx.lifecycle.*
 import com.sadique.messo.models.MediaItemData
-import com.sadique.messo.utils.Constants
 import com.sadique.musicservice.common.EMPTY_PLAYBACK_STATE
 import com.sadique.musicservice.common.MusicServiceConnection
 import com.sadique.musicservice.common.NOTHING_PLAYING
@@ -17,11 +16,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MediaItemListViewModel @Inject constructor(
-    musicServiceConnection: MusicServiceConnection,
-    savedStateHandle: SavedStateHandle,
+    musicServiceConnection: MusicServiceConnection
 ) : ViewModel() {
 
-    private val mediaId = savedStateHandle.get<String>(Constants.ARG_ROOT_ID)!!
+    private val mediaId = MusicServiceConnection.MESSO_LOCAL_ROOT
 
     /**
      * Use a backing property so consumers of mediaItems only get a [LiveData] instance so

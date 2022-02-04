@@ -34,8 +34,6 @@ import androidx.media.MediaBrowserServiceCompat
 import com.sadique.musicservice.media.MusicService
 import com.sadique.musicservice.media.NETWORK_FAILURE
 import com.sadique.musicservice.media.extensions.id
-import com.sadique.musicservice.utils.Constants.MESSO_LOCAL_ROOT
-import com.sadique.musicservice.utils.Constants.MESSO_REMOTE_ROOT
 import com.sadique.musicservice.utils.Event
 import com.sadique.musicservice.utils.Resource
 
@@ -96,9 +94,6 @@ class MusicServiceConnection private constructor(context: Context) {
     val mediaController get() = _mediaController
 
     val rootMediaId: String get() = mediaBrowser.root
-
-    val localRootId = MESSO_LOCAL_ROOT
-    val remoteRootId = MESSO_REMOTE_ROOT
 
     fun subscribe(parentId: String, callback: MediaBrowserCompat.SubscriptionCallback) {
         mediaBrowser.subscribe(parentId, callback)
@@ -209,6 +204,17 @@ class MusicServiceConnection private constructor(context: Context) {
     }
 
     companion object {
+
+        // BrowseTree
+        const val MESSO_BROWSABLE_ROOT = "/"
+        const val MESSO_EMPTY_ROOT = "@empty@"
+        const val MESSO_RECOMMENDED_ROOT = "__RECOMMENDED__"
+        const val MESSO_ALBUMS_ROOT = "__ALBUMS__"
+        const val MESSO_RECENT_ROOT = "__RECENT__"
+        const val MESSO_LOCAL_ROOT = "__LOCAL__"
+        const val MESSO_REMOTE_ROOT = "__REMOTE__"
+
+
         // For Singleton instantiation.
         @Volatile
         private var instance: MusicServiceConnection? = null

@@ -37,4 +37,7 @@
     <string name="now_playing">Now Playing</string>
     <string name="song_artist_and_album">Song Artist and Album</string>
     <string name="song_title">Song Title</string>
+    <string name="arg_root_id">arg_root_id</string>
+    <string name="device">Device</string>
+    <string name="remote">Remote</string>
 </resources>

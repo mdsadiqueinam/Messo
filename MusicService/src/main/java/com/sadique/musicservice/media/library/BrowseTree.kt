@@ -19,10 +19,8 @@ package com.sadique.musicservice.media.library
 import android.content.Context
 import android.support.v4.media.MediaBrowserCompat.MediaItem
 import android.support.v4.media.MediaMetadataCompat
-import com.sadique.musicservice.utils.Constants.MESSO_ALBUMS_ROOT
-import com.sadique.musicservice.utils.Constants.MESSO_BROWSABLE_ROOT
-import com.sadique.musicservice.utils.Constants.MESSO_LOCAL_ROOT
 import com.sadique.musicservice.R
+import com.sadique.musicservice.common.MusicServiceConnection
 import com.sadique.musicservice.media.extensions.*
 
 /**
@@ -69,17 +67,17 @@ class BrowseTree(
      * TODO: Expand to allow more browsing types.
      */
     init {
-        val rootList = mediaIdToChildren[MESSO_BROWSABLE_ROOT] ?: mutableListOf()
+        val rootList = mediaIdToChildren[MusicServiceConnection.MESSO_BROWSABLE_ROOT] ?: mutableListOf()
 
         val localMetadata = MediaMetadataCompat.Builder().apply {
-            id = MESSO_LOCAL_ROOT
+            id = MusicServiceConnection.MESSO_LOCAL_ROOT
             title = context.getString(R.string.local_title)
             flag = MediaItem.FLAG_BROWSABLE
         }.build()
 
         rootList += localMetadata
-        mediaIdToChildren[MESSO_BROWSABLE_ROOT] = rootList
-        mediaIdToChildren[MESSO_LOCAL_ROOT] = musicSource.getCatalog()
+        mediaIdToChildren[MusicServiceConnection.MESSO_BROWSABLE_ROOT] = rootList
+        mediaIdToChildren[MusicServiceConnection.MESSO_LOCAL_ROOT] = musicSource.getCatalog()
 
         /*musicSource.forEach { mediaItem ->
             val albumMediaId = mediaItem.album.urlEncoded
@@ -124,9 +122,9 @@ class BrowseTree(
         }.build()
 
         // Adds this album to the 'Albums' category.
-        val rootList = mediaIdToChildren[MESSO_ALBUMS_ROOT] ?: mutableListOf()
+        val rootList = mediaIdToChildren[MusicServiceConnection.MESSO_ALBUMS_ROOT] ?: mutableListOf()
         rootList += albumMetadata
-        mediaIdToChildren[MESSO_ALBUMS_ROOT] = rootList
+        mediaIdToChildren[MusicServiceConnection.MESSO_ALBUMS_ROOT] = rootList
 
         // Insert the album's root with an empty list for its children, and return the list.
         return mutableListOf<MediaMetadataCompat>().also {
