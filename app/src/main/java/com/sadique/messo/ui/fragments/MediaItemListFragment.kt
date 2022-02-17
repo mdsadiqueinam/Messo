@@ -34,7 +34,7 @@ class MediaItemListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         binding = MediaItemListFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }

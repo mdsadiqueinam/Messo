@@ -40,4 +40,5 @@
     <string name="arg_root_id">arg_root_id</string>
     <string name="device">Device</string>
     <string name="remote">Remote</string>
+    <string name="access_all_files">Access all files permission require, therefore open settings, click on \"Messo\" enable all files access</string>
 </resources>

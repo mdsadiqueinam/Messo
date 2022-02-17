@@ -3,6 +3,7 @@
     xmlns:motion="http://schemas.android.com/apk/res-auto">
 
     <Transition
+        android:id="@+id/expanded_to_collapsed"
         motion:constraintSetEnd="@+id/collapsed"
         motion:constraintSetStart="@+id/expanded"
         motion:duration="500"
@@ -43,6 +44,7 @@
     </Transition>
 
     <Transition
+        android:id="@+id/collapsed_to_expanded"
         motion:constraintSetEnd="@+id/expanded"
         motion:constraintSetStart="@id/collapsed"
         motion:duration="500"

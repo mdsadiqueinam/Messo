@@ -25,12 +25,8 @@ class NowPlayingViewModel @Inject constructor(
 
     private var playbackState: PlaybackStateCompat = EMPTY_PLAYBACK_STATE
     val mediaMetadata = MutableLiveData<MediaItemData>()
-    val mediaPosition = MutableLiveData<Long>().apply {
-        postValue(0L)
-    }
-    val mediaButtonRes = MutableLiveData<Int>().apply {
-        postValue(R.drawable.ic_pause)
-    }
+    val mediaPosition = MutableLiveData(0L)
+    val mediaButtonRes = MutableLiveData(R.drawable.ic_pause)
 
     private var updatePosition = true
     private val handler = Handler(Looper.getMainLooper())

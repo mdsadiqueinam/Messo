@@ -109,7 +109,7 @@ class LocalSource(private val context: Context) : AbstractMusicSource() {
         with(cursor) {
             val musicFiles = mutableListOf<MediaMetadataCompat>()
 
-            if (index >= count) return@with musicFiles
+            if (index >= count || count <= 0) return@with musicFiles
 
             moveToPosition(index)
 

@@ -25,8 +25,7 @@ class MediaItemListViewModel @Inject constructor(
      * Use a backing property so consumers of mediaItems only get a [LiveData] instance so
      * they don't inadvertently modify it.
      */
-    private val _mediaItems = MutableLiveData<Resource<List<MediaItemData>>>()
-        .apply { postValue(Resource.loading(null)) }
+    private val _mediaItems = MutableLiveData<Resource<List<MediaItemData>>>(Resource.loading(null))
     val mediaItems: LiveData<Resource<List<MediaItemData>>> get() = _mediaItems
 
     /**

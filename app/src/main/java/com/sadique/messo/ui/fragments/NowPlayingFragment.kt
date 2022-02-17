@@ -14,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
+import androidx.activity.OnBackPressedCallback
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.content.ContextCompat
@@ -39,7 +40,6 @@ import com.sadique.messo.ui.viewmodels.MainActivityViewModel
 import com.sadique.messo.ui.viewmodels.NowPlayingViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
-import kotlin.math.abs
 
 
 @AndroidEntryPoint
@@ -47,7 +47,6 @@ class NowPlayingFragment : Fragment() {
 
     companion object {
         const val TAG = "NowPlayingFragment"
-        fun newInstance() = NowPlayingFragment()
     }
 
     private lateinit var binding: NowPlayingFragmentBinding
@@ -105,7 +104,9 @@ class NowPlayingFragment : Fragment() {
             }
         }
 
-        override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) = Unit
+        override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {
+            manageOnBackPressed(currentId)
+        }
 
         override fun onTransitionTrigger(
             motionLayout: MotionLayout?,
@@ -114,6 +115,26 @@ class NowPlayingFragment : Fragment() {
             progress: Float,
         ) = Unit
 
+    }
+
+    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
+
+        override fun handleOnBackPressed() {
+            val rootLayout = binding.rootLayout
+            if (rootLayout.currentState == R.id.expanded) {
+                rootLayout.setTransition(R.id.expanded_to_collapsed)
+                rootLayout.transitionToEnd()
+            }
+        }
+
+    }
+
+    private fun manageOnBackPressed(currentId: Int) {
+        if (currentId == R.id.expanded) {
+            activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, onBackPressedCallback)
+        } else {
+            onBackPressedCallback.remove()
+        }
     }
 
     override fun onCreateView(
@@ -131,8 +152,8 @@ class NowPlayingFragment : Fragment() {
         binding.initView()
     }
 
-
     private fun NowPlayingFragmentBinding.initView() {
+        manageOnBackPressed(binding.rootLayout.currentState)
 
         playPauseBtn.setOnClickListener {
             currentlyPlayingSong?.let {

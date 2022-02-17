@@ -56,8 +56,7 @@ class MainActivityViewModel @Inject constructor(
     val playbackState = musicServiceConnection.playbackState
 
     private val transportControls: MediaControllerCompat.TransportControls
-        get() =
-            musicServiceConnection.mediaController.transportControls
+        get() = musicServiceConnection.mediaController.transportControls
 
     private val musicServiceConnection = musicServiceConnection.also {
         it.subscribe(MEDIA_ROOT_ID, object : MediaBrowserCompat.SubscriptionCallback() {})
